@@ -1,7 +1,7 @@
 Package: MRTAnalysis
 Type: Package
 Title: Primary and Secondary Analyses for Micro-Randomized Trials
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("Tianchen", "Qian", , "t.qian@uci.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-4282-7826")),
@@ -10,7 +10,7 @@ Authors@R: c(
     person("Audrey", "Boruvka", role = "ctb")
   )
 Description: 
-    Calculate estimates, confidence intervals, standard errors, and p-values for marginal causal excursion effects and moderated causal excursion effects for micro-randomized trial (MRT). Applicable to MRT with binary treatment options and continuous or binary outcomes. The method for MRT with continuous outcomes is the weighted centered least squares (WCLS) by Boruvka et al. (2018) <doi:10.1080/01621459.2017.1305274>. The method for MRT with binary outcomes is the estimator for marginal excursion effect (EMEE) by Qian et al. (2021) <doi:10.1093/biomet/asaa070>.
+    Estimates marginal causal excursion effects and moderated causal excursion effects for micro-randomized trial (MRT). Applicable to MRT with binary treatment options and continuous or binary outcomes. The method for MRT with continuous outcomes is the weighted centered least squares (WCLS) by Boruvka et al. (2018) <doi:10.1080/01621459.2017.1305274>. The method for MRT with binary outcomes is the estimator for marginal excursion effect (EMEE) by Qian et al. (2021) <doi:10.1093/biomet/asaa070>.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -21,11 +21,11 @@ Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2023-03-03 17:56:00 UTC; tqian
+Packaged: 2023-03-10 22:05:09 UTC; tqian
 Author: Tianchen Qian [aut, cre] (<https://orcid.org/0000-0003-4282-7826>),
   Shaolin Xiang [aut],
   Zhaoxi Cheng [aut],
   Audrey Boruvka [ctb]
 Maintainer: Tianchen Qian <t.qian@uci.edu>
 Repository: CRAN
-Date/Publication: 2023-03-06 13:50:10 UTC
+Date/Publication: 2023-03-11 00:00:03 UTC

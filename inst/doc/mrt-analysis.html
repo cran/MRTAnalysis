@@ -12,7 +12,7 @@
 
 <meta name="author" content="Tianchen Qian (t.qian@uci.edu), Shaolin Xiang, Zhaoxi Cheng" />
 
-<meta name="date" content="2023-03-03" />
+<meta name="date" content="2023-03-10" />
 
 <title>Primary and Secondary Analysis for Micro-Randomized Trial (MRT)</title>
 
@@ -356,7 +356,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Primary and Secondary Analysis for
 Micro-Randomized Trial (MRT)</h1>
 <h4 class="author">Tianchen Qian (<a href="mailto:t.qian@uci.edu" class="email">t.qian@uci.edu</a>), Shaolin Xiang, Zhaoxi Cheng</h4>
-<h4 class="date">2023-03-03</h4>
+<h4 class="date">2023-03-10</h4>
 
 
 
@@ -390,13 +390,13 @@ excursion effect, for MRT with binary outcome).</p>
 options many times throughout the trial. Suppose there are <span class="math inline">\(n\)</span> participants, and for the <span class="math inline">\(i\)</span>-th participant, they are enrolled in
 the trial for <span class="math inline">\(m_i\)</span> decision points.
 (In many MRT, the number of decision points <span class="math inline">\(m_i\)</span> is the same for all participants.
-This package also handles the setting where <span class="math inline">\(m_i\)</span> is different for different
+This package also automatically handles the setting where <span class="math inline">\(m_i\)</span> is different for different
 participants, so we present the data structure in a more general
 way.)</p>
 <p>For the <span class="math inline">\(i\)</span>-th participant at the
 <span class="math inline">\(t\)</span>-th decision point, we use the
-triplet <span class="math inline">\((X_{it}, A_{it}, Y_{i,t+1})\)</span>
-to denote the data collected, where</p>
+triplet <span class="math inline">\((X_{it}, A_{it}, Y_{it})\)</span> to
+denote the data collected, where</p>
 <ul>
 <li><span class="math inline">\(X_{it}\)</span> denotes the (vector of)
 time-varying covariates.</li>
@@ -413,8 +413,15 @@ observations of the participant and thus is different for different
 <span class="math inline">\((i,t)\)</span> combinations. This packages
 handles both situations.</li>
 </ul></li>
-<li><span class="math inline">\(Y_{i,t+1}\)</span> denotes the proximal
-outcome (continuous or binary). The time subscript is <span class="math inline">\(t+1\)</span> to emphasize the fact that <span class="math inline">\(Y_{i,t+1}\)</span> is measured after <span class="math inline">\(A_{it}\)</span>.</li>
+<li><span class="math inline">\(Y_{it}\)</span> denotes the proximal
+outcome (continuous or binary) following <span class="math inline">\(A_{it}\)</span>.
+<ul>
+<li>In some literature, the proximal outcome following <span class="math inline">\(A_{it}\)</span> is written as <span class="math inline">\(Y_{i,t+1}\)</span>. We use <span class="math inline">\(Y_{it}\)</span> here because this aligns with the
+<code>data.frame</code> input: each row in the <code>data.frame</code>
+would correspond to <span class="math inline">\((X_{it}, A_{it},
+Y_{it})\)</span> (and possibly other variables — see below) for a
+specific <span class="math inline">\((i,t)\)</span> combination.</li>
+</ul></li>
 </ul>
 <div id="availability" class="section level2">
 <h2>Availability</h2>
@@ -435,10 +442,12 @@ at the same time as <span class="math inline">\(X_{it}\)</span>.</p>
 <h1>Prepare Your Data Set for Analysis</h1>
 <p>To use any of the estimators in this package, you need to prepare
 your data set as a <code>data.frame</code> in long format, meaning that
-each row records observations from a decision point of a participant.
-The <code>data.frame</code> should be sorted so that consecutive rows
-should be from adjacent decision points from the same participant.
-Furthermore, the data set should contain the following columns:</p>
+each row records observations from a decision point of a participant
+(i.e., <span class="math inline">\((X_{it}, A_{it}, Y_{it})\)</span>
+(and possibly other variables — see below) for a specific <span class="math inline">\((i,t)\)</span> combination). The
+<code>data.frame</code> should be sorted so that consecutive rows should
+be from adjacent decision points from the same participant. Furthermore,
+the data set should contain the following columns:</p>
 <ul>
 <li>A user id column that distinguishes different participants.</li>
 <li>An outcome column that contains the proximal outcome.</li>
