@@ -12,7 +12,7 @@
 
 <meta name="author" content="Tianchen Qian (t.qian@uci.edu), Shaolin Xiang, Zhaoxi Cheng" />
 
-<meta name="date" content="2023-03-10" />
+<meta name="date" content="2023-07-01" />
 
 <title>Primary and Secondary Analysis for Micro-Randomized Trial (MRT)</title>
 
@@ -356,7 +356,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Primary and Secondary Analysis for
 Micro-Randomized Trial (MRT)</h1>
 <h4 class="author">Tianchen Qian (<a href="mailto:t.qian@uci.edu" class="email">t.qian@uci.edu</a>), Shaolin Xiang, Zhaoxi Cheng</h4>
-<h4 class="date">2023-03-10</h4>
+<h4 class="date">2023-07-01</h4>
 
 
 
@@ -548,24 +548,25 @@ the quantity to be estimated by setting
 availability variable by <code>availability = avail</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">wcls</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data_mimicHeartSteps,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> userid,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> logstep_30min,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> intervention,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="st">&quot;userid&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">&quot;logstep_30min&quot;</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="st">&quot;intervention&quot;</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rand_prob =</span> <span class="fl">0.6</span>,</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">moderator_formula =</span> <span class="sc">~</span><span class="dv">1</span>,</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">control_formula =</span> <span class="sc">~</span>logstep_pre30min,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">availability =</span> avail</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">availability =</span> <span class="st">&quot;avail&quot;</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Constant randomization probability 0.6 is used.</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; wcls(data = data_mimicHeartSteps, id = userid, outcome = logstep_30min, </span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     treatment = intervention, rand_prob = 0.6, moderator_formula = ~1, </span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     control_formula = ~logstep_pre30min, availability = avail)</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate 95% LCL 95% UCL StdErr Hotelling df1 df2 p-value</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)    0.157   0.031   0.284 0.0622       6.4   1  34  0.0162</span></span></code></pre></div>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Constant numerator probability 0.5 is used.</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; wcls(data = data_mimicHeartSteps, id = &quot;userid&quot;, outcome = &quot;logstep_30min&quot;, </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     treatment = &quot;intervention&quot;, rand_prob = 0.6, moderator_formula = ~1, </span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     control_formula = ~logstep_pre30min, availability = &quot;avail&quot;)</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate 95% LCL 95% UCL StdErr Hotelling df1 df2 p-value</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)    0.157   0.031   0.284 0.0622       6.4   1  34  0.0162</span></span></code></pre></div>
 <p>The <code>summary()</code> function provides the estimated causal
 excursion effect as well as the 95% confidence interval, standard error,
 and p-value. The only row in the output
@@ -590,25 +591,26 @@ causal excursion effect decreases slightly from 0.062 to 0.061 after we
 included two additional control variables.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">wcls</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data_mimicHeartSteps,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> userid,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> logstep_30min,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> intervention,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="st">&quot;userid&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">&quot;logstep_30min&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="st">&quot;intervention&quot;</span>,</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rand_prob =</span> <span class="fl">0.6</span>,</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">moderator_formula =</span> <span class="sc">~</span><span class="dv">1</span>,</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">control_formula =</span> <span class="sc">~</span> logstep_pre30min <span class="sc">+</span> logstep_30min_lag1 <span class="sc">+</span> is_at_home_or_work,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">availability =</span> avail</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">availability =</span> <span class="st">&quot;avail&quot;</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Constant randomization probability 0.6 is used.</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; wcls(data = data_mimicHeartSteps, id = userid, outcome = logstep_30min, </span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     treatment = intervention, rand_prob = 0.6, moderator_formula = ~1, </span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     control_formula = ~logstep_pre30min + logstep_30min_lag1 + </span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         is_at_home_or_work, availability = avail)</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate 95% LCL 95% UCL StdErr Hotelling df1 df2 p-value</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)    0.159  0.0353   0.282 0.0605      6.86   1  32  0.0134</span></span></code></pre></div>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Constant numerator probability 0.5 is used.</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; wcls(data = data_mimicHeartSteps, id = &quot;userid&quot;, outcome = &quot;logstep_30min&quot;, </span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     treatment = &quot;intervention&quot;, rand_prob = 0.6, moderator_formula = ~1, </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     control_formula = ~logstep_pre30min + logstep_30min_lag1 + </span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         is_at_home_or_work, availability = &quot;avail&quot;)</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate 95% LCL 95% UCL StdErr Hotelling df1 df2 p-value</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)    0.159  0.0351   0.283 0.0607      6.84   1  32  0.0135</span></span></code></pre></div>
 <p>One can ask <code>summary()</code> to print out the fitted
 coefficients for the control variables as well, by setting
 <code>show_control_fit = TRUE</code>. This is illustrated by the
@@ -619,21 +621,21 @@ can rarely be true in an MRT setting.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2, <span class="at">show_control_fit =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Interpreting the fitted coefficients for control variables is not recommended.</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; wcls(data = data_mimicHeartSteps, id = userid, outcome = logstep_30min, </span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     treatment = intervention, rand_prob = 0.6, moderator_formula = ~1, </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; wcls(data = data_mimicHeartSteps, id = &quot;userid&quot;, outcome = &quot;logstep_30min&quot;, </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     treatment = &quot;intervention&quot;, rand_prob = 0.6, moderator_formula = ~1, </span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     control_formula = ~logstep_pre30min + logstep_30min_lag1 + </span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         is_at_home_or_work, availability = avail)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         is_at_home_or_work, availability = &quot;avail&quot;)</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate 95% LCL 95% UCL StdErr Hotelling df1 df2 p-value</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)    0.159  0.0353   0.282 0.0605      6.86   1  32  0.0134</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)    0.159  0.0351   0.283 0.0607      6.84   1  32  0.0135</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $control_variables</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    Estimate 95% LCL 95% UCL StdErr Hotelling df1 df2 p-value</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)          1.8470  1.7381  1.9559 0.0535   1193.50   1  32 0.00000</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logstep_pre30min     0.3413  0.3011  0.3815 0.0197    299.52   1  32 0.00000</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logstep_30min_lag1   0.0393  0.0162  0.0624 0.0114     12.00   1  32 0.00153</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; is_at_home_or_work   0.1490  0.0376  0.2603 0.0547      7.42   1  32 0.01037</span></span></code></pre></div>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    Estimate 95% LCL 95% UCL StdErr Hotelling df1 df2  p-value</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)          1.8373  1.7222  1.9524 0.0565   1056.59   1  32 0.000000</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logstep_pre30min     0.3400  0.2997  0.3803 0.0198    295.31   1  32 0.000000</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; logstep_30min_lag1   0.0399  0.0181  0.0618 0.0107     13.84   1  32 0.000764</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; is_at_home_or_work   0.1355  0.0263  0.2447 0.0536      6.39   1  32 0.016585</span></span></code></pre></div>
 </div>
 <div id="moderated-causal-excursion-effect" class="section level2">
 <h2>Moderated Causal Excursion Effect</h2>
@@ -643,26 +645,27 @@ excursion effect moderated by the location of the individual,
 <code>moderator_formula = ~is_at_home_or_work</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">wcls</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data_mimicHeartSteps,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> userid,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> logstep_30min,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> intervention,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="st">&quot;userid&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">&quot;logstep_30min&quot;</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="st">&quot;intervention&quot;</span>,</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rand_prob =</span> <span class="fl">0.6</span>,</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">moderator_formula =</span> <span class="sc">~</span>is_at_home_or_work,</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">control_formula =</span> <span class="sc">~</span> logstep_pre30min <span class="sc">+</span> logstep_30min_lag1 <span class="sc">+</span> is_at_home_or_work,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">availability =</span> avail</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">availability =</span> <span class="st">&quot;avail&quot;</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Constant randomization probability 0.6 is used.</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; wcls(data = data_mimicHeartSteps, id = userid, outcome = logstep_30min, </span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     treatment = intervention, rand_prob = 0.6, moderator_formula = ~is_at_home_or_work, </span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     control_formula = ~logstep_pre30min + logstep_30min_lag1 + </span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         is_at_home_or_work, availability = avail)</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    Estimate 95% LCL 95% UCL StdErr Hotelling df1 df2 p-value</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)           0.109 -0.0288   0.247 0.0677     2.605   1  31   0.117</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; is_at_home_or_work    0.135 -0.1660   0.435 0.1474     0.835   1  31   0.368</span></span></code></pre></div>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Constant numerator probability 0.5 is used.</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; wcls(data = data_mimicHeartSteps, id = &quot;userid&quot;, outcome = &quot;logstep_30min&quot;, </span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     treatment = &quot;intervention&quot;, rand_prob = 0.6, moderator_formula = ~is_at_home_or_work, </span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     control_formula = ~logstep_pre30min + logstep_30min_lag1 + </span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         is_at_home_or_work, availability = &quot;avail&quot;)</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    Estimate 95% LCL 95% UCL StdErr Hotelling df1 df2 p-value</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)           0.109 -0.0288   0.247 0.0677     2.606   1  31   0.117</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; is_at_home_or_work    0.135 -0.1661   0.436 0.1475     0.835   1  31   0.368</span></span></code></pre></div>
 <p>The moderated causal excursion effect is modeled as a linear form:
 <span class="math inline">\(\beta_0 + \beta_1 \cdot
 \text{is_at_home_or_work}\)</span>. The output
@@ -687,20 +690,20 @@ this <span class="math inline">\(\beta_0 + \beta_1\)</span> coefficient
 combination.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit3, <span class="at">lincomb =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; wcls(data = data_mimicHeartSteps, id = userid, outcome = logstep_30min, </span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     treatment = intervention, rand_prob = 0.6, moderator_formula = ~is_at_home_or_work, </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; wcls(data = data_mimicHeartSteps, id = &quot;userid&quot;, outcome = &quot;logstep_30min&quot;, </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     treatment = &quot;intervention&quot;, rand_prob = 0.6, moderator_formula = ~is_at_home_or_work, </span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     control_formula = ~logstep_pre30min + logstep_30min_lag1 + </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         is_at_home_or_work, availability = avail)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         is_at_home_or_work, availability = &quot;avail&quot;)</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                  Estimate 95% LCL 95% UCL StdErr Hotelling df1</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                         0.109 -0.0288   0.247 0.0677     2.605   1</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; is_at_home_or_work                  0.135 -0.1660   0.435 0.1474     0.835   1</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) + is_at_home_or_work    0.244  0.0848   0.403 0.1258     3.761   2</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                         0.109 -0.0288   0.247 0.0677     2.606   1</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; is_at_home_or_work                  0.135 -0.1661   0.436 0.1475     0.835   1</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) + is_at_home_or_work    0.244  0.0846   0.403 0.1260     3.753   2</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                  df2 p-value</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                       31 0.11664</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; is_at_home_or_work                31 0.36791</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) + is_at_home_or_work  31 0.00185</span></span></code></pre></div>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)                       31 0.11661</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; is_at_home_or_work                31 0.36787</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) + is_at_home_or_work  31 0.00187</span></span></code></pre></div>
 <p>Based on the output, the causal excursion effect at home or work is
 estimated to be 0.244, with 95% CI (0.085, 0.403) and p-value 0.002.</p>
 </div>
@@ -783,23 +786,24 @@ specify the availability variable by
 <code>availability = avail</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fit4 <span class="ot">&lt;-</span> <span class="fu">emee</span>(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data_binary,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> userid,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> Y,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> A,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rand_prob =</span> rand_prob,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="st">&quot;userid&quot;</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="st">&quot;A&quot;</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rand_prob =</span> <span class="st">&quot;rand_prob&quot;</span>,</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">moderator_formula =</span> <span class="sc">~</span><span class="dv">1</span>,</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">control_formula =</span> <span class="sc">~</span> time_var1 <span class="sc">+</span> time_var2,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">availability =</span> avail</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">availability =</span> <span class="st">&quot;avail&quot;</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit4)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emee(data = data_binary, id = userid, outcome = Y, treatment = A, </span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rand_prob = rand_prob, moderator_formula = ~1, control_formula = ~time_var1 + </span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         time_var2, availability = avail)</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate 95% LCL 95% UCL StdErr t_value df  p-value</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)    0.341   0.241    0.44   0.05    6.81 96 8.54e-10</span></span></code></pre></div>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Constant numerator probability 0.5 is used.</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit4)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emee(data = data_binary, id = &quot;userid&quot;, outcome = &quot;Y&quot;, treatment = &quot;A&quot;, </span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rand_prob = &quot;rand_prob&quot;, moderator_formula = ~1, control_formula = ~time_var1 + </span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         time_var2, availability = &quot;avail&quot;)</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate 95% LCL 95% UCL StdErr t_value df  p-value</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)    0.341   0.241    0.44   0.05    6.81 96 8.54e-10</span></span></code></pre></div>
 <p>The <code>summary()</code> function provides the estimated causal
 excursion effect as well as the 95% confidence interval, standard error,
 and p-value. The only row in the output
@@ -818,9 +822,9 @@ can rarely be true in an MRT setting.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit4, <span class="at">show_control_fit =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Interpreting the fitted coefficients for control variables is not recommended.</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emee(data = data_binary, id = userid, outcome = Y, treatment = A, </span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rand_prob = rand_prob, moderator_formula = ~1, control_formula = ~time_var1 + </span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         time_var2, availability = avail)</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emee(data = data_binary, id = &quot;userid&quot;, outcome = &quot;Y&quot;, treatment = &quot;A&quot;, </span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rand_prob = &quot;rand_prob&quot;, moderator_formula = ~1, control_formula = ~time_var1 + </span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         time_var2, availability = &quot;avail&quot;)</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate 95% LCL 95% UCL StdErr t_value df  p-value</span></span>
@@ -839,24 +843,25 @@ excursion effect moderated by <code>time_var1</code>. This is achieved
 by setting <code>moderator_formula = ~time_var1</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fit5 <span class="ot">&lt;-</span> <span class="fu">emee</span>(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data_binary,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> userid,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> Y,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> A,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rand_prob =</span> rand_prob,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="st">&quot;userid&quot;</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">&quot;Y&quot;</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="st">&quot;A&quot;</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rand_prob =</span> <span class="st">&quot;rand_prob&quot;</span>,</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">moderator_formula =</span> <span class="sc">~</span>time_var1,</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">control_formula =</span> <span class="sc">~</span> time_var1 <span class="sc">+</span> time_var2,</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">availability =</span> avail</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">availability =</span> <span class="st">&quot;avail&quot;</span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit5)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emee(data = data_binary, id = userid, outcome = Y, treatment = A, </span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rand_prob = rand_prob, moderator_formula = ~time_var1, control_formula = ~time_var1 + </span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         time_var2, availability = avail)</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate 95% LCL 95% UCL StdErr t_value df p-value</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)   0.0811  -0.180   0.342  0.132   0.616 95  0.5391</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; time_var1     0.4293   0.051   0.808  0.191   2.253 95  0.0266</span></span></code></pre></div>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Constant numerator probability 0.5 is used.</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit5)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emee(data = data_binary, id = &quot;userid&quot;, outcome = &quot;Y&quot;, treatment = &quot;A&quot;, </span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rand_prob = &quot;rand_prob&quot;, moderator_formula = ~time_var1, </span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     control_formula = ~time_var1 + time_var2, availability = &quot;avail&quot;)</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate 95% LCL 95% UCL StdErr t_value df p-value</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)   0.0811  -0.180   0.342  0.132   0.616 95  0.5391</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; time_var1     0.4293   0.051   0.808  0.191   2.253 95  0.0266</span></span></code></pre></div>
 <p>The moderated causal excursion effect is modeled as a linear form:
 <span class="math inline">\(\beta_0 + \beta_1 \cdot
 \text{time_var1}\)</span>. The output
@@ -892,9 +897,9 @@ interpretation is under the assumption that the causal excursion effect
 changes linearly over time.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit5, <span class="at">lincomb =</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.0333</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $call</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emee(data = data_binary, id = userid, outcome = Y, treatment = A, </span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rand_prob = rand_prob, moderator_formula = ~time_var1, control_formula = ~time_var1 + </span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         time_var2, availability = avail)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; emee(data = data_binary, id = &quot;userid&quot;, outcome = &quot;Y&quot;, treatment = &quot;A&quot;, </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     rand_prob = &quot;rand_prob&quot;, moderator_formula = ~time_var1, </span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     control_formula = ~time_var1 + time_var2, availability = &quot;avail&quot;)</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $causal_excursion_effect</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                Estimate 95% LCL 95% UCL StdErr t_value df</span></span>

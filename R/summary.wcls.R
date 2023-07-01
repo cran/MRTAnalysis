@@ -23,14 +23,14 @@
 #' @export
 #'
 #' @examples fit <- wcls(
-#'     outcome = logstep_30min,
-#'     treatment = intervention,
+#'     data = data_mimicHeartSteps,
+#'     id = "userid",
+#'     outcome = "logstep_30min",
+#'     treatment = "intervention",
+#'     rand_prob = 0.6,
 #'     moderator_formula = ~1,
 #'     control_formula = ~logstep_pre30min,
-#'     availability = avail,
-#'     rand_prob = 0.6,
-#'     data = data_mimicHeartSteps,
-#'     id = userid,
+#'     availability = "avail",
 #'     numerator_prob = 0.6
 #' )
 #' summary(fit)
@@ -157,7 +157,7 @@ summary.wcls_fit <- function(
             function(q) 1 - mapply(pf, q = q, df1 = d1, df2 = d2)
         }
     }
-    var.est <- combos %*% vcov(object, small = small) %*% t(combos)
+    var.est <- combos %*% vcov_geeglm(object, small = small) %*% t(combos)
     se.est <- sqrt(diag(var.est))
     crit <- sqrt(qfun(conf.int))
     lcl <- est - se.est * crit

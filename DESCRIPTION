@@ -1,7 +1,7 @@
 Package: MRTAnalysis
 Type: Package
 Title: Primary and Secondary Analyses for Micro-Randomized Trials
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
     person("Tianchen", "Qian", , "t.qian@uci.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-4282-7826")),
@@ -21,11 +21,11 @@ Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2023-03-10 22:05:09 UTC; tqian
+Packaged: 2023-07-01 20:59:57 UTC; tqian
 Author: Tianchen Qian [aut, cre] (<https://orcid.org/0000-0003-4282-7826>),
   Shaolin Xiang [aut],
   Zhaoxi Cheng [aut],
   Audrey Boruvka [ctb]
 Maintainer: Tianchen Qian <t.qian@uci.edu>
 Repository: CRAN
-Date/Publication: 2023-03-11 00:00:03 UTC
+Date/Publication: 2023-07-01 21:20:02 UTC
