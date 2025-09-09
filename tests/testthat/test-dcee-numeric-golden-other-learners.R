@@ -172,7 +172,7 @@ test_that("SuperLearner: goldens for beta / se / V and lincomb", {
     # Use a deterministic, minimal library; disable shuffling in CV control
 
     set.seed(50501)
-    fit <- dcee(
+    fit <- suppressPackageStartupMessages(dcee(
         data = dat,
         id = "userid", outcome = "Y", treatment = "A", rand_prob = "prob_A",
         moderator_formula = ~Z,
@@ -183,7 +183,7 @@ test_that("SuperLearner: goldens for beta / se / V and lincomb", {
         verbose = FALSE,
         # pass through to SuperLearner via ...
         cvControl = SuperLearner::SuperLearner.CV.control(V = 3, shuffle = FALSE)
-    )
+    ))
 
     # cat("SL beta_hat = "); dput(unclass(fit$fit$beta_hat)); cat("\n")
     # cat("SL beta_se  = "); dput(unclass(fit$fit$beta_se));  cat("\n")

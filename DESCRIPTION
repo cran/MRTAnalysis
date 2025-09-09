@@ -1,8 +1,8 @@
 Package: MRTAnalysis
 Type: Package
-Title: Assessing Proximal and Distal Causal Excursion Effects for
-        Micro-Randomized Trials
-Version: 0.2.0
+Title: Assessing Proximal, Distal, and Mediated Causal Excursion
+        Effects for Micro-Randomized Trials
+Version: 0.3.0
 Authors@R: c(
     person("Tianchen", "Qian", , "t.qian@uci.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-4282-7826")),
@@ -11,8 +11,7 @@ Authors@R: c(
     person("Audrey", "Boruvka", role = "ctb")
   )
 Description: 
-    Estimates marginal causal excursion effects and moderated causal excursion effects for micro-randomized trial (MRT). Applicable to MRT with binary treatment options and continuous or binary outcomes. The method for MRT with continuous outcomes is the weighted centered least squares (WCLS) by Boruvka et al. (2018) <doi:10.1080/01621459.2017.1305274>. The method for MRT with binary outcomes is the estimator for marginal excursion effect (EMEE) by Qian et al. (2021) <doi:10.1093/biomet/asaa070>. 
-	Estimates marginal and moderated causal excursion effects for micro-randomized trials (MRTs) with binary treatment options. Supports continuous and binary proximal outcomes as well as distal outcomes. Methods include weighted and centered least squares (WCLS) for continuous proximal outcomes by Boruvka et al. (2018) <doi:10.1080/01621459.2017.1305274>, the estimator for marginal excursion effect (EMEE) for binary proximal outcomes by Qian et al. (2021) <doi:10.1093/biomet/asaa070>, and two-stage estimation of distal causal excursion effects (DCEE)  for continuous distal outcomes <doi:10.48550/arXiv.2502.13500>.
+	Provides methods to analyze micro-randomized trials (MRTs) with binary treatment options.  Supports three types of analyses: (1) proximal causal excursion effects, including weighted and centered least squares (WCLS) for continuous proximal outcomes by Boruvka et al. (2018) <doi:10.1080/01621459.2017.1305274> and the estimator for marginal excursion effect (EMEE) for binary proximal outcomes by Qian et al. (2021) <doi:10.1093/biomet/asaa070>; (2) distal causal excursion effects (DCEE) for continuous distal outcomes using a two-stage estimator by Qian (2025) <doi:10.48550/arXiv.2502.13500>; and (3) mediated causal excursion effects (MCEE) for continuous distal outcomes, estimating natural direct and indirect excursion effects in the presence of time-varying mediators by Qian (2025) <doi:10.48550/arXiv.2506.20027>.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -20,11 +19,12 @@ RoxygenNote: 7.3.2
 Imports: rootSolve, stats, geepack, sandwich, mgcv, randomForest,
         ranger
 Depends: R (>= 4.2)
-Suggests: knitr, rmarkdown, testthat (>= 3.0.0), SuperLearner, earth
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0), SuperLearner, earth,
+        dplyr
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2025-08-28 22:54:41 UTC; tqian
+Packaged: 2025-09-09 03:55:29 UTC; tqian
 Author: Tianchen Qian [aut, cre] (ORCID:
     <https://orcid.org/0000-0003-4282-7826>),
   Shaolin Xiang [aut],
@@ -32,4 +32,4 @@ Author: Tianchen Qian [aut, cre] (ORCID:
   Audrey Boruvka [ctb]
 Maintainer: Tianchen Qian <t.qian@uci.edu>
 Repository: CRAN
-Date/Publication: 2025-08-29 08:41:17 UTC
+Date/Publication: 2025-09-09 07:20:31 UTC
