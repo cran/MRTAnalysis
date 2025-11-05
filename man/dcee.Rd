@@ -155,16 +155,18 @@ summary(fit_gam, show_control_fit = TRUE) # show Stage-1 fit info
 
 ## Optional: SuperLearner (runs only if installed)
 \donttest{
-library(SuperLearner)
-fit_sl <- dcee(
-    data = data_distal_continuous,
-    id = "userid", outcome = "Y", treatment = "A", rand_prob = "prob_A",
-    moderator_formula = ~1,
-    control_formula = ~ X + Z,
-    availability = "avail",
-    control_reg_method = "sl",
-    cross_fit = FALSE
-)
-summary(fit_sl)
+if (requireNamespace("SuperLearner", quietly = TRUE)) {
+  library(SuperLearner)
+  fit_sl <- dcee(
+      data = data_distal_continuous,
+      id = "userid", outcome = "Y", treatment = "A", rand_prob = "prob_A",
+      moderator_formula = ~1,
+      control_formula = ~ X + Z,
+      availability = "avail",
+      control_reg_method = "sl",
+      cross_fit = FALSE
+  )
+  summary(fit_sl)
+}
 }
 }

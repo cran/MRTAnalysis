@@ -1,3 +1,7 @@
+## MRTAnalysis 0.3.1
+
+- Fixed a bug in `wcls()` where input data with unordered ID may cause dimension errors in matrix operations. Specifically, the `split()` function was sorting IDs alphabetically while cluster sizes and working covariance matrices used the order IDs appeared in the data. Now uses `factor()` with explicit levels to preserve ID ordering across all internal functions (`wcls_bread()`, `leverage()`, `wcls_estfun()`, `wcls_meat()`, `working.covariance()`).
+
 ## MRTAnalysis 0.3.0
 
 - Added new functionality for mediated causal excursion effects in MRTs:

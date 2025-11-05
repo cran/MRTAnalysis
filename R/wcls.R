@@ -318,17 +318,26 @@ model.matrix_geeglm <- function(x) x$geese$X
 wcls_bread <- function(x, wcovinv = NULL, invert = TRUE, approx = TRUE, ...) {
     approx <- approx & x$family$link != "identity"
     if (is.null(wcovinv)) wcovinv <- working.covariance(x, invert = TRUE)
-    g <- if (approx) {
-        function(D, V, r, X, k) 0
-    } else {
-        function(D, V, r, X, k) t(D) %*% V %*% diag(r, k) %*% X
-    }
-    b <- mapply(function(D, DD, V, r, X, k) g(DD, V, r, X, k) - t(D) %*% V %*% D,
-        D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), x$id),
-        DD = split.data.frame(model.matrix_geeglm(x) * dot.mu(x, 2), x$id),
+
+    # Ensure consistent ordering by using factor with levels matching x$id order
+    id_factor <- factor(x$id, levels = unique(x$id))
+
+    b <- mapply(function(D, DD, V, r, X, k) {
+        D <- as.matrix(D)
+        DD <- as.matrix(DD)
+        X <- as.matrix(X)
+        g_result <- if (approx) {
+            0
+        } else {
+            t(DD) %*% V %*% diag(r, k) %*% X
+        }
+        g_result - t(D) %*% V %*% D
+    },
+        D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), id_factor),
+        DD = split.data.frame(model.matrix_geeglm(x) * dot.mu(x, 2), id_factor),
         V = wcovinv,
-        r = split(x$y - x$fitted.values, x$id),
-        X = split.data.frame(model.matrix_geeglm(x), x$id),
+        r = split(x$y - x$fitted.values, id_factor),
+        X = split.data.frame(model.matrix_geeglm(x), id_factor),
         k = cluster.size(x),
         SIMPLIFY = FALSE
     )
@@ -346,8 +355,15 @@ leverage <- function(x, wcovinv = NULL, invert = TRUE) {
     } else {
         identity
     }
-    mapply(function(D, V, k) g(D %*% B %*% t(D) %*% V),
-        D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), x$id),
+
+    # Ensure consistent ordering by using factor with levels matching x$id order
+    id_factor <- factor(x$id, levels = unique(x$id))
+
+    mapply(function(D, V, k) {
+        D <- as.matrix(D)
+        g(D %*% B %*% t(D) %*% V)
+    },
+        D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), id_factor),
         V = wcovinv,
         SIMPLIFY = FALSE
     )
@@ -364,13 +380,20 @@ wcls_estfun <- function(x, wcovinv = NULL, small = TRUE, res = FALSE, ...) {
     } else {
         lapply(cluster.size(x), function(k) diag(1, k))
     }
+
+    # Ensure consistent ordering by using factor with levels matching x$id order
+    id_factor <- factor(x$id, levels = unique(x$id))
+
     r <- mapply(function(S, r) S %*% r,
         S = scale,
-        r = split(x$y - x$fitted.values, x$id),
+        r = split(x$y - x$fitted.values, id_factor),
         SIMPLIFY = FALSE
     )
-    e <- mapply(function(D, V, r) t(D) %*% V %*% r,
-        D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), x$id),
+    e <- mapply(function(D, V, r) {
+        D <- as.matrix(D)
+        t(D) %*% V %*% r
+    },
+        D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), id_factor),
         V = wcovinv,
         r = r,
         SIMPLIFY = FALSE
@@ -403,6 +426,10 @@ wcls_meat <- function(x, pn = NULL, pd = pn, lag = 0, wcovinv = NULL,
         if (x$family$link != "identity") {
             stop("Only the identity link is supported under centering or weighting.")
         }
+
+        # Ensure consistent ordering by using factor with levels matching x$id order
+        id_factor <- factor(x$id, levels = unique(x$id))
+
         ## centering?
         center <- inherits(pn, "geeglm")
         ## weighting?
@@ -410,6 +437,8 @@ wcls_meat <- function(x, pn = NULL, pd = pn, lag = 0, wcovinv = NULL,
         ## return cluster-level derivative (terms) of...
         ## ... effect estimating function wrt treatment probability
         Ux.p <- function(D, V, r, k, Dp, p = rep(1, nrow(Dp)), j) {
+            D <- as.matrix(D)
+            Dp <- as.matrix(Dp)
             t(D) %*% diag(p[j]) %*% V %*% diag(r, k) %*% Dp[j, , drop = FALSE]
         }
         ## ... (observed) treatment probability wrt its regression model coefficients
@@ -433,9 +462,9 @@ wcls_meat <- function(x, pn = NULL, pd = pn, lag = 0, wcovinv = NULL,
             ## keep aligned with observations in 'x'
             obs <- align.obs(x, pd, lag)
             sig <- mapply(Ux.p,
-                D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), x$id),
+                D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), id_factor),
                 V = wcovinv,
-                r = split(res, x$id),
+                r = split(res, id_factor),
                 k = cluster.size(x),
                 Dp = split.data.frame(Up.coef(pd, one = FALSE), pd$id),
                 j = obs,
@@ -452,9 +481,9 @@ wcls_meat <- function(x, pn = NULL, pd = pn, lag = 0, wcovinv = NULL,
             k <- which.terms(x, label)
             obs <- align.obs(x, pn, lag)
             sig1 <- mapply(Ux.p,
-                D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), x$id),
+                D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), id_factor),
                 V = wcovinv,
-                r = split(res, x$id),
+                r = split(res, id_factor),
                 k = cluster.size(x),
                 Dp = split.data.frame(Up.coef(pn, one = FALSE), pn$id),
                 j = obs,
@@ -470,9 +499,9 @@ wcls_meat <- function(x, pn = NULL, pd = pn, lag = 0, wcovinv = NULL,
                 1 / as.vector(mm2[, k[1]])
             )
             sig2 <- mapply(Ux.p,
-                D = split.data.frame(mm2 * dot.mu(x), x$id),
+                D = split.data.frame(mm2 * dot.mu(x), id_factor),
                 V = wcovinv,
-                r = split(res, x$id),
+                r = split(res, id_factor),
                 k = cluster.size(x),
                 Dp = split.data.frame(Up.coef(pn), pn$id),
                 p = split(pn$fitted.values, pn$id),
@@ -483,9 +512,9 @@ wcls_meat <- function(x, pn = NULL, pd = pn, lag = 0, wcovinv = NULL,
             ## residual component in third term reduces to probability factor
             resid3 <- as.vector(-mm2[, k, drop = FALSE] %*% coef(x)[k])
             sig3 <- mapply(Ux.p,
-                D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), x$id),
+                D = split.data.frame(model.matrix_geeglm(x) * dot.mu(x), id_factor),
                 V = wcovinv,
-                r = split(resid3, x$id),
+                r = split(resid3, id_factor),
                 k = cluster.size(x),
                 Dp = split.data.frame(Up.coef(pn), pn$id),
                 p = split(pn$fitted.values, pn$id),
@@ -545,14 +574,18 @@ working.covariance <- function(x, invert = FALSE, wcor = NULL) {
     } else {
         function(V, w, k) diag(ifelse(w == 0, 0, 1 / w), k) %*% V
     }
+
+    # Ensure consistent ordering by using factor with levels matching x$id order
+    id_factor <- factor(x$id, levels = unique(x$id))
+
     mapply(
         function(a, s, w, k) {
             g(phi * diag(a, k) %*%
                 wcor[1:k, 1:k, drop = FALSE] %*%
                 diag(a, k), w, k)
         },
-        a = split(sqrt(x$family$variance(x$fitted.values)), x$id),
-        w = split(x$prior.weights, x$id),
+        a = split(sqrt(x$family$variance(x$fitted.values)), id_factor),
+        w = split(x$prior.weights, id_factor),
         k = cluster.size(x),
         SIMPLIFY = FALSE
     )
